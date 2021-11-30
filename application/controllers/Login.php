@@ -5,6 +5,9 @@
 
         public function __construct() {
             parent::__construct();
+            if(!empty($this->session->user_id))
+                redirect($this->session->role);
+
             $this->load->model('User_model');
             $this->load->helper('form');
 
@@ -24,7 +27,7 @@
                     $this->session->user_id = $user['user_id'];
                     $this->session->username = $user['username'];
                     $this->session->role = $user['role'];
-                    redirect('main');
+                    redirect($this->session->role);
                 }
                 else
                     $this->data['error'] = "incorrect email or password";

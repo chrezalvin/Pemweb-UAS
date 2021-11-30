@@ -44,7 +44,7 @@
         }
     </style>
 
-    <title>Login</title>
+    <title>Register</title>
 </head>
 <body class="d-flex justify-content-center">
     <table class="table w-50 align-self-center">
