@@ -5,6 +5,9 @@ class Register extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        if(!empty($this->session->user_id))
+            redirect($this->session->role);
+
         $this->load->model('User_model');
         $this->load->helper('form');
         $this->load->library('form_validation');
