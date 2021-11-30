@@ -6,10 +6,9 @@
         public function __construct() 
         {
             parent::__construct();
-            // if(empty($this->session->user_id))
-            //     redirect('login');
-            // else if($this->session->role != 'admin')
-            //     redirect('user');
+            // redirect to the appropriate page when role isn't valid
+            if($this->session->role != 'admin')
+                redirect($this->session->role);
 
             $this->load->library('grocery_CRUD');
 
