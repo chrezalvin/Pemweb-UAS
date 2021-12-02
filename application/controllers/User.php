@@ -8,6 +8,8 @@ class User extends CI_Controller {
         if(empty($this->session->user_id))
             redirect('login');
 
+        $this->load->model('Facility_model');
+
         $this->data['jquery'] = $this->load->view('assets/jquery', NULL, TRUE);
         $this->data['bootstrap'] = $this->load->view('assets/bootstrap', NULL, TRUE);
         $this->data['navbar'] = $this->load->view('templates/navbar', [
@@ -18,6 +20,39 @@ class User extends CI_Controller {
 
     public function index()
     {
+        redirect('user/facilities');
+    }
+
+    public function facilities()
+    {
+        $this->data['facilities'] = $this->Facility_model->get_facilities();
         $this->load->view('pages/user/facilities', $this->data);
+    }
+
+    public function facility($name)
+    {
+        $this->data['facility'] = $this->Facility_model->get_facility($name);
+        $this->load->view('pages/user/facilities_details', $this->data);
+    }
+
+    public function requests()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->load->model('Requests_model');
+
+        $this->form_validation->set_rules($this->Requests_model->get_request_rule());
+
+        $this->data['facilities'] = $this->Facility_model->get_all_facilities_by_name();
+        $this->data['id'] = $this->input->get('id');
+
+        if($this->input->post('submit') && $this->form_validation->run()) {
+            if($this->Requests_model->add_request($this->input->post()))
+                redirect('user/facilities');
+            else
+                $this->data['error'] = 'Something went wrong In our database!';
+        }
+        
+        $this->load->view('pages/user/requests', $this->data);
     }
 }
