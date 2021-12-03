@@ -25,11 +25,6 @@
                     'label' => 'Start Time',
                     'rules' => 'trim|required'
                 ),
-                'end_time' => array(
-                    'field' => 'end_time',
-                    'label' => 'End Time',
-                    'rules' => 'trim|required'
-                )
             );
 
             return $rule;
