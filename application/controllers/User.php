@@ -5,6 +5,7 @@ class User extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        
         if(empty($this->session->user_id))
             redirect('login');
 
@@ -45,6 +46,7 @@ class User extends CI_Controller {
         $this->load->model('Requests_model');
 
         $this->form_validation->set_rules($this->Requests_model->get_request_rule());
+        $this->form_validation->set_rules('end_time', 'End Time', 'required|callback_check_end_time');
 
         $this->data['facilities'] = $this->Facility_model->get_all_facilities_by_name();
         $this->data['id'] = $this->input->get('id');
@@ -57,5 +59,19 @@ class User extends CI_Controller {
         }
         
         $this->load->view('pages/user/requests', $this->data);
+    }
+
+    // check if end time is greater than start time
+    public function check_end_time($str)
+    {
+        $start_time = $this->input->post('start_time');
+        $end_time = $str;
+
+        if(strtotime($start_time) > strtotime($end_time)){
+            $this->form_validation->set_message('check_end_time', 'End time must be greater than start time');
+            return FALSE;
+        }
+        else
+            return TRUE;
     }
 }
