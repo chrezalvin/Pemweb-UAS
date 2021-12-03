@@ -39,16 +39,21 @@
             $crud->fields('username', 'email', 'role');
             $crud->required_fields('username', 'email', 'role');
 
+            // Custom edit field for role
             $crud->callback_edit_field('role', function($value, $primary_key){
                 return form_dropdown('role', [
                     'admin' => 'admin',
+                    'managemenet' => 'management',
                     'user' => 'user'
                 ], $value);
             });
+
+            // Custom edit field for email
             $crud->callback_edit_field('email', function($value, $primary_key){
                 return form_input('email', $value);
             });
 
+            // admin can only edit and delete
             $crud->unset_add();
             $crud->unset_read();
             $crud->unset_print();
@@ -58,6 +63,7 @@
             $this->load->view('pages/admin/user_list', $this->data);
         }
 
+        // admin have full privilleges on facilities
         public function facilities()
         {
             $crud = new grocery_CRUD();
@@ -73,6 +79,7 @@
             $crud->set_field_upload('image', 'assets/uploads');
             $crud->required_fields('name', 'image');
 
+            // custom edit field for description
             $crud->callback_edit_field('description', function($value, $primary_key){
                 return form_textarea('description', $value);
             });
@@ -87,14 +94,16 @@
             $crud = new grocery_CRUD();
 
             $crud->set_table('requests')
-                ->columns('requester', 'facility', 'date', 'start_time', 'end_time');
+                ->columns('requester_id', 'facility_id', 'date', 'start_time', 'end_time', 'approval');
 
-            $crud->display_as('requester', 'Requester');
-            $crud->display_as('facility', 'Facility');
+            $crud->display_as('requester', 'Requester ID');
+            $crud->display_as('facility', 'Facility ID');
             $crud->display_as('date', 'Date');
             $crud->display_as('start_time', 'Start');
             $crud->display_as('end_time', 'End');
+            $crud->display_as('approval', 'Approval');
 
+            // admin can only see requests
             $crud->unset_edit();
             $crud->unset_add();
             $crud->unset_read();

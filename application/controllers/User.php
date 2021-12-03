@@ -23,18 +23,21 @@ class User extends CI_Controller {
         redirect('user/facilities');
     }
 
+    // view facilities listed
     public function facilities()
     {
         $this->data['facilities'] = $this->Facility_model->get_facilities();
         $this->load->view('pages/user/facilities', $this->data);
     }
 
+    // view individual facility (have description)
     public function facility($name)
     {
         $this->data['facility'] = $this->Facility_model->get_facility($name);
         $this->load->view('pages/user/facilities_details', $this->data);
     }
 
+    // make requests to facilities
     public function requests()
     {
         $this->load->helper('form');
