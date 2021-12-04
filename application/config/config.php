@@ -523,5 +523,5 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 // recaptcha site key
-$config['recaptcha_sitekey'] = '6Lfk-nkdAAAAAK9sBat_sXGwCsn3VTzrZ0H1N2Ie';
-$config['recaptcha_secretkey'] = '6Lfk-nkdAAAAAFnYB6aRn76B_6YITdsEctyf-LOr';
+$config['recaptcha_sitekey'] = '';
+$config['recaptcha_secretkey'] = '';
