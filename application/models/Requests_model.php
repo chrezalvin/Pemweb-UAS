@@ -41,4 +41,37 @@
 
             return $this->db->insert('requests', $data);
         }
+
+        // get all requests
+        public function get_requests_pending() {
+            $query = $this->db->query('call get_requests_pending()');
+            return $query->result_array();
+        }
+
+        // get all requests
+        public function get_requests()
+        {
+            $query = $this->db->query('call get_requests()');
+            return $query->result_array();
+        }
+
+        // approve request
+        public function approve_request($request_id) {
+            $data = array(
+                'approval' => 'approved'
+            );
+
+            $this->db->where('id', $request_id);
+            return $this->db->update('requests', $data);
+        }
+
+        // reject request
+        public function reject_request($request_id) {
+            $data = array(
+                'approval' => 'rejected'
+            );
+
+            $this->db->where('id', $request_id);
+            return $this->db->update('requests', $data);
+        }
     }

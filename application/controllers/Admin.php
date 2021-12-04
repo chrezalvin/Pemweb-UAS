@@ -43,7 +43,7 @@
             $crud->callback_edit_field('role', function($value, $primary_key){
                 return form_dropdown('role', [
                     'admin' => 'admin',
-                    'managemenet' => 'management',
+                    'management' => 'management',
                     'user' => 'user'
                 ], $value);
             });
