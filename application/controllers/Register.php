@@ -15,6 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $this->data['jquery'] = $this->load->view('assets/jquery', NULL, TRUE);
             $this->data['bootstrap'] = $this->load->view('assets/bootstrap', NULL, TRUE);
+            $this->data['recaptcha_site_key'] = $this->config->item('recaptcha_sitekey');
+            $this->data['recaptcha_secret_key'] = $this->config->item('recaptcha_secretkey');
         }
 
         // page for /register
@@ -23,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_email_check');
             $this->form_validation->set_rules('password', 'Password', 'required');
             $this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required|matches[password]');
+            $this->form_validation->set_rules('g-recaptcha-response', 'Captcha', 'required|callback_check_recaptcha_response');
 
             // change error message to bootstrap error message
             $this->form_validation->set_error_delimiters('<div class="invalid-feedback">', '</div>');
@@ -47,5 +50,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             else
                 return TRUE;
+        }
+
+        public function check_recaptcha_response($string)
+        {
+            $recaptcha_response = $this->input->post('g-recaptcha-response');
+            $recaptcha_secret = $this->data['recaptcha_secret_key'];
+            $recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=$recaptcha_secret&response=$recaptcha_response";
+            $recaptcha_data = file_get_contents($recaptcha_url);
+            $recaptcha_result = json_decode($recaptcha_data);
+            if($recaptcha_result->success)
+                return TRUE;
+            else
+            {
+                $this->form_validation->set_message('check_recaptcha_response', 'This ReCaptcha wasn\'t clicked! To check if you\'re human, please click the ReCaptcha.');
+                return FALSE;
+            }
         }
     }

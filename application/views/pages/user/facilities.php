@@ -16,9 +16,9 @@
     <p class="text-center">Preview and book facilities</p>
 
     <!-- grid -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px;" class="mx-4 my-4">
+    <div class="row mx-4 my-4 d-flex justify-content-center">
         <?php foreach($facilities as $facility): ?>
-            <div class="card" style="width: 18rem;">
+            <div class="card m-4 col-12 col-lg-3 col-md-4 col-sm-12" style="width: 18rem;">
             <!-- bootstrap card -->
                 <img src="<?= base_url('assets/uploads/'.$facility['image']) ?>" class="card-img-top" alt="<?= "image".$facility['name'] ?>" style="height: 200px; object-fit: cover;">
                 <div class="card-body">
