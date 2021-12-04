@@ -12,10 +12,6 @@
         <script src="<?= $src ?>" type="text/javascript" defer></script>
     <?php endforeach ?>
 
-    <?php foreach($crud['js_lib_files'] as $src): ?>
-        <script src="<?= $src ?>" type="text/javascript" defer></script>
-    <?php endforeach ?>
-
     <?php foreach($crud['css_files'] as $src): ?>
         <link rel="stylesheet" href="<?= $src ?>" type="text/css">
     <?php endforeach ?>
