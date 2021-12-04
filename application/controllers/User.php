@@ -6,7 +6,7 @@ class User extends CI_Controller {
         parent::__construct();
         
         if(empty($this->session->user_id))
-            redirect('login');
+            redirect($this->session->user_id);
 
         $this->load->model('Facility_model');
 

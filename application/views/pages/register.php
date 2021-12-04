@@ -37,6 +37,7 @@
 
     <?= $bootstrap ?>
     <?= $jquery ?>
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 
     <style>
         body{
@@ -46,11 +47,12 @@
 
     <title>Register</title>
 </head>
-<body class="d-flex justify-content-center">
-    <table class="table w-50 align-self-center">
+<body>
         <?= form_open(current_url(), [
             'id' => 'form',
+            'class' => 'w-100 d-flex justify-content-center'
         ]) ?>
+            <table class="table w-50 align-self-center">
             <tr>
                 <td colspan="2" class="text-center"><h2>Registration</h2></td>
             </tr>
@@ -83,6 +85,15 @@
                 </td>
             </tr>
             <tr class="form-group">
+                <td colspan="2">
+                    <div class="d-flex justify-content-center">
+                        <!-- recaptcha v2 -->
+                        <div class="g-recaptcha" data-sitekey="<?= $recaptcha_site_key ?>" id="recaptcha"></div>
+                        <?= form_error('g-recaptcha-response', '<div class="text-danger">', '</div>') ?>
+                    </div>
+                </td>
+            </tr>
+            <tr class="form-group">
                 <td colspan="2"><input type="submit" class="btn btn-success w-100" name="register" id="register" value="Register"></td>
             </tr>
             <tr>
@@ -93,7 +104,7 @@
             <tr>
                 <td colspan="2"><p class="text-danger"><?= $error ?? "" ?></p></td>
             </tr>
+        </table>
         <?= form_close() ?>
-    </table>
 </body>
 </html>

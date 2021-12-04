@@ -12,7 +12,7 @@
 </head>
 <body>
     <?= $navbar ?>
-    <h1 class="text-center my-4">Requests Pending</h1>
+    <h1 class="text-center my-4">All requests</h1>
 
     <table class="table">
         <thead>
