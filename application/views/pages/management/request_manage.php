@@ -19,23 +19,26 @@
             <tr>
                 <th>#</th>
                 <th>Requester</th>
-                <th>Requested request</th>
+                <th>Requested Facility</th>
                 <th>Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>Approval</th>
+                <th>Operation</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($requests as $request): ?>
+            <?php foreach ($facilities as $facility): ?>
                 <tr>
-                    <td><?= $request['id'] ?></td>
-                    <td><?= $request['requester'] ?></td>
-                    <td><?= $request['facility'] ?></td>
-                    <td><?= $request['date'] ?></td>
-                    <td><?= $request['start_time'] ?></td>
-                    <td><?= $request['end_time'] ?></td>
-                    <td><?= $request['approval'] ?></td>
+                    <td><?= $facility['id'] ?></td>
+                    <td><?= $facility['requester'] ?></td>
+                    <td><?= $facility['facility'] ?></td>
+                    <td><?= $facility['date'] ?></td>
+                    <td><?= $facility['start_time'] ?></td>
+                    <td><?= $facility['end_time'] ?></td>
+                    <td>
+                        <a href="<?= site_url('management/reject/'.$facility['id']) ?>" class="btn btn-danger">Reject</a>
+                        <a href="<?= site_url('management/approve/'.$facility['id']) ?>" class="btn btn-success">Approve</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -43,11 +46,11 @@
             <tr>
                 <th>#</th>
                 <th>Requester</th>
-                <th>Requested request</th>
+                <th>Requested Facility</th>
                 <th>Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>Approval</th>
+                <th>Operation</th>
             </tr>
         </tfoot>
     </table>
